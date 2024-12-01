@@ -16,7 +16,7 @@ function Saved() {
         const savedFavs = JSON.parse(localStorage.getItem("favs")) || [];
 
 
-        fetch("https://api.jikan.moe/v4/top/anime")
+        fetch("https://api.jikan.moe/v4/anime")
             .then(response => response.json())
             .then(data => {
 

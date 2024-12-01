@@ -61,7 +61,7 @@ function Home() {
     useEffect(() => {
 
         // Jikan REST API https link for top animes 
-        fetch("https://api.jikan.moe/v4/top/anime")
+        fetch("https://api.jikan.moe/v4/anime")
             // When response is sent, turn the response into json
             .then((response) => {
                 return response.json();
@@ -96,7 +96,7 @@ function Home() {
 
                 <div key={anime.mal_id}>
                     <Link to={`/anime/${anime.mal_id}`}>{anime.title}</Link>
-                    
+
                     <button onClick={() => { toggleFav(anime.mal_id) }}>{favs.includes(anime.mal_id) ? "Remove" : "Add to Favourites"}</button>
 
                 </div>
