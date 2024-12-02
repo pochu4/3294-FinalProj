@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import '../index.css';
+import IonIcon from "@reacticons/ionicons";
 
-import Hero from "./HeroSection";
-import TopAnime from "./TopAnime";
 
 function Home() {
 
@@ -25,16 +24,7 @@ function Home() {
         fetch(`https://api.jikan.moe/v4/anime?q=${searchTerm}`)
             .then(response => response.json())
             .then(dataObj => {
-                // ~56 minutes in the class recording
-                // const filteredAnimes = dataObj.filter((loopAnime) => {
-
-                //     return loopAnime.title.toLowerCase().includes(searchTerm.toLowerCase())
-
-                // });
-
-                // Updates the current state of dataObj with the new search query made by user
                 setAnime(dataObj.data);
-
             })
             .catch((error) => {
                 console.log("Error Fetching Anime Data", error);
@@ -45,14 +35,10 @@ function Home() {
     const toggleFav = (animeID) => {
         // If animeID already included, remove
         if (favs.includes(animeID)) {
-
-
             const filteredAnimes = favs.filter(favId => favId !== animeID);
             setFavs(filteredAnimes);
             localStorage.setItem("favs", JSON.stringify(filteredAnimes));
         } else {
-
-
             // If not add
             const updatedFavs = [...favs, animeID];
             setFavs(updatedFavs);
@@ -64,7 +50,7 @@ function Home() {
 
     useEffect(() => {
 
-        // Jikan REST API https link for top animes 
+        // Jikan REST API https link fortop anime
         fetch("https://api.jikan.moe/v4/top/anime")
             // When response is sent, turn the response into json
             .then((response) => {
@@ -84,43 +70,56 @@ function Home() {
 
     return (
         <>
-            <div className="bg-gray-800 text-white">
-                <input type="text"
-                    placeholder="Search an Anime!"
-                    value={searchTerm}
-                    // Everytime it changes it changes the searchTerm
-                    onChange={(event) => { setSearchTerm(event.target.value) }}
-                />
-                <button onClick={searchAnime}>Search</button>
 
-                <Link to="/saved">Go to Your Favorites</Link>
+            <div className="bg-zinc-900 text-black">
 
-                <Hero />
+                <div className="flex flex-col justify-center items-center">
+                    <img className="max-w-96" src="../src/assets/pochita.png" alt="Pochita! Logo" />
+                    <div className="flex justify-between w-10/12">
+                        <Link to="/saved" className="bg-violet-500 rounded-lg text-white text-md font-semibold w-24 flex justify-center items-center">Bookmarks!</Link>
+                        <div className="flex">
+                            <input type="text" placeholder="Search an Anime!" value={searchTerm} onChange={(event) => { setSearchTerm(event.target.value) }} id="default-input" className="rounded-tl-lg rounded-bl-lg w-96 p-2" />
+                            <button onClick={searchAnime} className="bg-violet-500 flex justify-center align-center p-2 rounded-tr-lg rounded-br-lg "><IonIcon name="search-outline" color="white" size="64px"></IonIcon></button>
+                        </div>
+                    </div>
+                </div>
 
-                <div className="w-11/12 mx-auto flex flex-col gap-6 my-8">
+                {/* <div className="bg-white">
+                    <input type="text"
+                        placeholder="Search an Anime!"
+                        value={searchTerm}
+                        // Everytime it changes it changes the searchTerm
+                        onChange={(event) => { setSearchTerm(event.target.value) }}
+                    />
+                    <button onClick={searchAnime}>Search</button>
+
+                    <Link to="/saved">Go to Your Favorites</Link>
+                </div> */}
+                {/* <Hero /> */}
+
+                <div className="w-10/12 mx-auto flex flex-col gap-6 my-8">
                     <h1 className="text-neutral-50 text-2xl md:text-3xl lg:text-4xl font-bold border-l-4 border-violet-500 pl-4">
                         Top Anime
                     </h1>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {anime.map((anime) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
+                        {/* Slice limits to how many is shown */}
+                        {anime.slice(0, 15).map((anime) => (
                             <div key={anime.mal_id} className="rounded-xl overflow-hidden shadow-xl bg-white transform transition-transform duration-300 hover:scale-105">
                                 <img className="w-full h-64 object-cover" src={anime.images.jpg.image_url} alt={anime.title} />
                                 <div className="p-6">
                                     <h2 className="text-xl font-semibold text-gray-900 mb-2">{anime.title}</h2>
-                                    <p className="text-gray-700 text-sm mb-4">
-                                        {anime.synopsis.length > 100 ? `${anime.synopsis.substring(0, 100)}...` : anime.synopsis}
-                                    </p>
+
                                     <div className="flex justify-between items-center">
-                                        <Link to={`/anime/${anime.mal_id}`} className="text-blue-500 hover:text-blue-700 text-sm font-semibold">
+                                        <Link to={`/anime/${anime.mal_id}`} className="text-violet-500 hover:text-violet-700 text-sm font-semibold">
                                             View Details
                                         </Link>
                                         <button
-                                            className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 transition duration-200"
+                                            className="text-black font-medium rounded-lg text-sm py-2.5"
                                             onClick={() => { toggleFav(anime.mal_id) }}
                                             type="button"
                                         >
-                                            {favs.includes(anime.mal_id) ? "Remove" : "Add to Favourites"}
+                                            {favs.includes(anime.mal_id) ? <IonIcon name="heart" size="32px" color="red" /> : <IonIcon name="heart-outline" size="32px" color="red"/>}
                                         </button>
                                     </div>
                                 </div>
@@ -128,6 +127,8 @@ function Home() {
                         ))}
                     </div>
                 </div>
+
+
 
             </div>
 
