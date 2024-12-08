@@ -32,7 +32,7 @@ function AnimeDetails() {
     }
 
     return (
-
+        // Based off the api's structuring, data is followed by the name (title, mal_id, status, episodes, etc.)
         <div className="bg-zinc-900 text-white">
 
             <div className="w-10/12 mx-auto py-8">
@@ -61,6 +61,7 @@ function AnimeDetails() {
                         </div>
                         <p className="my-8">{anime.synopsis}</p>
                         {anime.genres.map((genre) => (
+                            // Key for map
                             <span key={genre.mal_id} className="mr-2 border mt-4 border-purple-800 p-4 bg-zinc-900 rounded-lg">
                                 {genre.name}
                             </span>

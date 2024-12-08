@@ -38,7 +38,7 @@ return (
 
         <div className="w-10/12 mx-auto py-8">
 
-            <img src="../src/assets/pochita.png" alt="" className="mx-auto max-w-96"/>
+            <img src="../src/assets/pochita.png" alt="Pochita Chainsaw man" className="mx-auto max-w-96"/>
 
             <Link to="/">
                 <div className="flex">

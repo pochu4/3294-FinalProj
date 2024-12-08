@@ -84,19 +84,6 @@ function Home() {
                     </div>
                 </div>
 
-                {/* <div className="bg-white">
-                    <input type="text"
-                        placeholder="Search an Anime!"
-                        value={searchTerm}
-                        // Everytime it changes it changes the searchTerm
-                        onChange={(event) => { setSearchTerm(event.target.value) }}
-                    />
-                    <button onClick={searchAnime}>Search</button>
-
-                    <Link to="/saved">Go to Your Favorites</Link>
-                </div> */}
-                {/* <Hero /> */}
-
                 <div className="w-10/12 mx-auto flex flex-col gap-6 my-8">
                     <h1 className="text-neutral-50 text-2xl md:text-3xl lg:text-4xl font-bold border-l-4 border-violet-500 pl-4">
                         Top Anime
